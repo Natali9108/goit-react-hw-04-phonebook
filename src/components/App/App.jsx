@@ -4,8 +4,8 @@ import { BsPersonFillAdd } from 'react-icons/bs';
 import ButtonIcon from '../ButtonIcon';
 import Modal from '../Modal';
 import ContactForm from '../ContactForm';
-import ContactList from '../ContactList';
 import Filter from '../Filter';
+import ContactList from '../ContactList';
 import { useToggle, useLocalStorage } from 'hooks';
 import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 
