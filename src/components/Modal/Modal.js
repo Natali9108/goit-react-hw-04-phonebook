@@ -1,51 +1,48 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { VscChromeClose } from 'react-icons/vsc';
+import PropTypes from 'prop-types';
 import { Backdrop, ModalBox, CloseBtn } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleCloseEsc);
-  }
+const Modal = props => {
+  const { onClose } = props;
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleCloseEsc);
-  }
+  useEffect(() => {
+    const handleCloseEsc = evt => {
+      if (evt.code === 'Escape') {
+        onClose();
+        return;
+      }
+    };
+    document.addEventListener('keydown', handleCloseEsc);
+    return () => {
+      document.removeEventListener('keydown', handleCloseEsc);
+    };
+  }, [onClose]);
 
-  handleCloseEsc = evt => {
-    if (evt.code === 'Escape') {
-      this.props.onClose();
-    }
-  };
-
-  handelBackdropClick = evt => {
+  const handelBackdropClick = evt => {
     if (evt.target === evt.currentTarget) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    return createPortal(
-      <Backdrop onClick={this.handelBackdropClick}>
-        <ModalBox>
-          <CloseBtn onClick={() => this.props.onClose()}>
-            <VscChromeClose />
-          </CloseBtn>
-          {this.props.children}
-        </ModalBox>
-      </Backdrop>,
-      modalRoot
-    );
+  return createPortal(
+    <Backdrop onClick={handelBackdropClick}>
+      <ModalBox>
+        <CloseBtn onClick={() => onClose()}>
+          <VscChromeClose />
+        </CloseBtn>
+        {props.children}
+      </ModalBox>
+    </Backdrop>,
+    modalRoot
+  );
+};
 
-    // return (
-    //   <Backdrop>
-    //     <ModalBox>
-    //       <button type="button">Close</button>
-    //       {this.props.children}
-    //     </ModalBox>
-    //   </Backdrop>
-    // );
-  }
-}
+Modal.propTypes = {
+  onClick: PropTypes.func,
+};
+
+export default Modal;
