@@ -13,7 +13,7 @@ const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
   const [contacts, setContacts] = useState(
-    JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
+    () => JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
   );
   const [filter, setFilter] = useState('');
   const { isOpen, toggle } = useToggle();
