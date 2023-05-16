@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import ButtonIcon from '../ButtonIcon';
@@ -6,21 +6,15 @@ import Modal from '../Modal';
 import ContactForm from '../ContactForm';
 import ContactList from '../ContactList';
 import Filter from '../Filter';
-import { useToggle } from 'hooks/useToggle';
+import { useToggle, useLocalStorage } from 'hooks';
 import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 
 const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? [];
-  });
+  const [contacts, setContacts] = useLocalStorage(LOCAL_STORAGE_KEY, []);
   const [filter, setFilter] = useState('');
   const { isOpen, toggle } = useToggle();
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   const addContact = data => {
     const { name, number } = data;

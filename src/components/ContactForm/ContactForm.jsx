@@ -35,6 +35,7 @@ const ContactForm = props => {
             <Input
               type="text"
               name="name"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               className={errors.name && touched.name ? 'invalid' : 'null'}
             />
             <ErrorDescription component="div" name="name" />
@@ -44,6 +45,7 @@ const ContactForm = props => {
             <Input
               type="tel"
               name="number"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
               className={errors.number && touched.number ? 'invalid' : 'null'}
             />
             <ErrorDescription component="div" name="number" />
