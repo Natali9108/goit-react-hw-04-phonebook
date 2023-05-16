@@ -12,9 +12,9 @@ import { Container, PhonebookTitle, ContactsTitle } from './App.styled';
 const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
-  );
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? [];
+  });
   const [filter, setFilter] = useState('');
   const { isOpen, toggle } = useToggle();
 
