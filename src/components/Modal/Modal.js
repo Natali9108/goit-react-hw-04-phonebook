@@ -6,9 +6,7 @@ import { Backdrop, ModalBox, CloseBtn } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = props => {
-  const { onClose } = props;
-
+const Modal = ({ onClose, children }) => {
   useEffect(() => {
     const handleCloseEsc = evt => {
       if (evt.code === 'Escape') {
@@ -34,7 +32,7 @@ const Modal = props => {
         <CloseBtn onClick={() => onClose()}>
           <VscChromeClose />
         </CloseBtn>
-        {props.children}
+        {children}
       </ModalBox>
     </Backdrop>,
     modalRoot
