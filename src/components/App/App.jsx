@@ -32,7 +32,7 @@ export const App = () => {
       alert(`This contact is already in contacts.`);
       return;
     }
-    setContacts([contact, ...contacts]);
+    setContacts(state => [...state, contact]);
     toggle();
   };
 
